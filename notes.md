@@ -3,6 +3,8 @@
 Document.ready on ready
 
 USE GIT BRANCHES FOR EACH FEATURE!
+Reference: koala project
+and physical full stack
 
 # onReady
 Click listeners for:
