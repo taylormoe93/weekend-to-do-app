@@ -23,8 +23,8 @@ Click listeners for:
 which sends the objectToSend object to the server. Uses URL "/tasks".
 
 # Server app.post.
-Client Post connects to app.post on server.js. Uses URL "/tasks". 
-We create the const query which will enter SQL code: `INSERT INTO "tasks" ("task:", "status:") VALUES $1, $2);` 
+[X]Client Post connects to app.post on server.js. Uses URL "/tasks". 
+We create the const query which will enter SQL code: `INSERT INTO "tasks" ("task:") VALUES $1;` 
 as well as const values with all the req.bodies.THING's. 
 And pool.query (which connects to the database.sql | query <- and -> results). Which then has a res.send that sends the data back to the response of getTasks.
 
