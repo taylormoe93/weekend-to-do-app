@@ -1,0 +1,47 @@
+const express = require('express');
+const tasksRouter = express.Router();
+
+
+// DATABASE CONNECTION
+const pg = require('pg');
+const Pool = pg.Pool;
+const pool = new Pool({
+    database: 'weekend-to-do-app', // name of database
+    host: 'localhost',
+    port: 5432,
+    max: 10, 
+    idleTimeoutMillis: 10000 
+}); 
+
+// GET - connect to the GET in client.js
+tasksRouter.get( '/', (req, res ) => {
+    console.log( 'in GET' );
+    
+    const query = `SELECT * from "tasks" ORDER by "id";`;
+
+    pool.query( query ).then( ( results ) => {
+        res.send( results.rows );
+    }).catch( (err) => {
+        console.log( 'ERROR with GET:', err );
+        res.sendStatus( 500 );
+    })
+}) // end /tasks GET
+
+
+// POST - connect to the POST in client.js
+tasksRouter.post( '/' , ( req, res ) => {
+    console.log( 'in POST:', req.body );
+
+    const query = `INSERT INTO "tasks" ( "task" ) VALUES ($1);`;
+    const values = [ req.body.task ];
+
+    pool.query( query, values ).then( results => {
+        res.sendStatus( 200 );
+    }).catch( (err) => {
+        console.log( 'ERROR with INSERT:', err );
+        res.sendStatus( 500 );
+    })
+}); //end /tasks POST
+
+module.exports = tasksRouter;
+

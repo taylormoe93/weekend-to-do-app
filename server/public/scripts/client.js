@@ -4,9 +4,9 @@ $( document ).ready( onReady );
 
 function onReady(){
     //event listeners 
-    $( '#addTaskButton' ).on( 'click', addTask ); //links to addTask function
-    // taskComplete button
-    // taskDelete button
+    $( '.addTaskButton' ).on( 'click', addTask ); //links to addTask function
+    // $( '.completeButton' ).on( 'click', );
+    // $( '.deleteButton' ).on( 'click', );
 
     getTasks(); 
 };
@@ -22,8 +22,8 @@ function addTask() {
     // send to server
     $.ajax({
         type: 'POST',
-        url: '/tasks', //double check this if it throws an error. Might be just /.
-        data: 'objectToSend'
+        url: '/tasks', 
+        data: objectToSend
     }).then( function( response ){
         console.log( 'back from POST:', response );
         //clear inputs
@@ -31,15 +31,19 @@ function addTask() {
         //refresh data and DOM
        getTasks(); 
     }).catch( function( err ){
-        alert( 'error adding item:', err );
+        alert( 'error in POST:', err );
     })
-} // end addTask. Linked to app.post on server.js. Erroring right now, but it doesn't have all the necessary data.
+}; // end addTask. Linked to app.post on server.js. Erroring right now, but it doesn't have all the necessary data.
+
+
+
+
 
 //GET TASKS
 function getTasks(){
     $.ajax({
         type:'GET',
-        url: '/tasks' // MIGHT NEED TO CHANGE TO '/'
+        url: '/tasks' 
     }).then( function( response ){
         let taskDisplay = $( '#tasksOut' );
         taskDisplay.empty();
