@@ -10,7 +10,21 @@ app.listen(PORT, () => {
     console.log('up and running on port', PORT);
 });
 
-// connect to the POST in client.js
+// APP.GET - connect to the GET in client.js
+app.get( '/tasks', (req, res ) => {
+    console.log( 'in /tasks GET' );
+    
+    const query = `SELECT * from "tasks" ORDER by "id";`;
+
+    pool.query( query ).then( ( results ) => {
+        res.send( results.rows );
+    }).catch( (err) => {
+        console.log( 'ERROR with GET:', err );
+        res.sendStatus( 500 );
+    })
+}) // end /tasks GET
+
+// APP.POST - connect to the POST in client.js
 app.post( '/tasks' ), ( req, res ) => {
     console.log( 'in /tasks POST:', req.body );
 
@@ -24,3 +38,4 @@ app.post( '/tasks' ), ( req, res ) => {
         res.sendStatus( 500 );
     })
 }; //end /tasks POST
+
