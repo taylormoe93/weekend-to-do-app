@@ -33,7 +33,7 @@ And pool.query (which connects to the database.sql | query <- and -> results). W
 
 ## AJAX GET 
 # getTasks()
-AJAX GET object:GET, '/tasks'.
+[X] AJAX GET object:GET, '/tasks'.
 
 .then: create a variable called taskDisplay = the output div in Index.html where the tasks will display as an unordered list.
 Empty it.

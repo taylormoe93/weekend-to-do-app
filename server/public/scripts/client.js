@@ -70,3 +70,17 @@ function getTasks(){
         alert('error getting tasks', err); 
     })
 }
+
+function deleteTask(){
+    const id = $( this ).data( 'id' );
+    console.log( 'in delete:', id );
+    $.ajax({
+        type: 'DELETE',
+        url: `/items/${ id }`
+    }).then( function( response ){
+        console.log( `back from DELETE:`, response );
+        getTasks();
+    }).catch( function( err ){
+        AudioListener( 'Error with Delete:', err );
+    })
+};
