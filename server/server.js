@@ -10,6 +10,28 @@ app.listen(PORT, () => {
     console.log('up and running on port', PORT);
 });
 
+// DB CONNECTION
+const pg = require('pg');
+const Pool = pg.Pool;
+const config = {
+    database: 'weekend-to-do-app', // name of database
+    host: 'localhost',
+    port: 5432,
+    max: 10, // max number of concurrent connections
+    idleTimeoutMillis: 10000 // attempt to connect for 10 seconds
+}; 
+const pool = new Pool(config);
+
+pool.on('connect', () => {
+    console.log('postgresql connected');
+});
+
+pool.on('error', (error) => {
+    console.log('Error connecting to db', error);
+});
+
+
+
 // APP.GET - connect to the GET in client.js
 app.get( '/tasks', (req, res ) => {
     console.log( 'in /tasks GET' );
