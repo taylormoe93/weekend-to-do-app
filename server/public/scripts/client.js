@@ -8,9 +8,10 @@ function onReady(){
     // taskComplete button
     // taskDelete button
 
-    // getTasks(); // doesn't exist yet but will be made
+    getTasks(); 
 };
 
+//ADD TASK FUNCTION AND POST
 function addTask() {
     let objectToSend = {
         task: $( '#inputTask' ).val()
@@ -28,8 +29,40 @@ function addTask() {
         //clear inputs
         $( 'input' ).val('');
         //refresh data and DOM
-        // getTasks(); DON'T FORGET ME!
+       getTasks(); 
     }).catch( function( err ){
         alert( 'error adding item:', err );
     })
-} // end addTask
+} // end addTask. Linked to app.post on server.js. Erroring right now, but it doesn't have all the necessary data.
+
+//GET TASKS
+function getTasks(){
+    $.ajax({
+        type:'GET',
+        url: '/tasks' // MIGHT NEED TO CHANGE TO '/'
+    }).then( function( response ){
+        let taskDisplay = $( '#tasksOut' );
+        taskDisplay.empty();
+
+        // render to DOM // may need to change this for the toggle of complete vs incomplete task
+        for( let i=0; i<response.length; i++)
+            if(response[i].status === false){ // if status === false, stay neutral color
+                 taskDisplay.append(`
+                 <li>
+                    ${ response[i].task }
+                    <button class="completeButton" data-id="${ response[i].id }" data-status="${ response[i].status }">complete</button>
+                    <button class="deleteButton" data-id="${ response[i].id }">delete</button>
+                </li>   
+            `)} else{ // if status ==== true, then we will append to green in CSS
+            taskDisplay.append(`
+                <li class="complete">
+                    ${ response[i].task }
+                    <button class="completeButton" data-id="${ response[i].id }" data-status="${ response[i].status }">complete</button>
+                    <button class="deleteButton" data-id="${ response[i].id }">delete</button>
+                </li>   
+            `)
+        } 
+    }).catch(function(err){
+        alert('error getting tasks', err); 
+    })
+}
