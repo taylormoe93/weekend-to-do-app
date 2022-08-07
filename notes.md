@@ -8,12 +8,12 @@ and physical full stack
 
 # onReady
 Click listeners for:
-    - "Add task" button. This triggers the function: addTask. 
+    [X] "Add task" button. This triggers the function: addTask. 
     - "Task Complete" button 
     - "Task Delete" button    
     
 # addTask function
-Addtask function creates an object called objectToSend with task: and status: $.val(). 
+[X] addTask function creates an object called objectToSend with task: and status: $.val(). 
 
 
 ### Send to server 
