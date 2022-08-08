@@ -5,8 +5,8 @@ $( document ).ready( onReady );
 function onReady(){
     //event listeners 
     $( '.addTaskButton' ).on( 'click', addTask ); //links to addTask function
-    // $( '.completeButton' ).on( 'click', );
-    $( '#outputDiv' ).on( 'click', '.deleteButton', deleteTask );
+    $( '#outputDiv' ).on( 'click', '.deleteButton', deleteTask ); // links to deleteTask function
+    $( '#outputDiv' ).on( 'click', '.completeButton', toggleComplete ); // links to toggleComplete function
 
     getTasks(); 
 };
@@ -39,7 +39,7 @@ function addTask() {
 
 
 
-//GET TASKS
+// GET TASKS
 function getTasks(){
     $.ajax({
         type:'GET',
@@ -71,6 +71,7 @@ function getTasks(){
     })
 }
 
+// DELETE TASK
 function deleteTask(){
     const id = $( this ).data( 'id' );
     console.log( 'in delete:', id );
@@ -83,4 +84,21 @@ function deleteTask(){
     }).catch( function( err ){
         alert( 'Error with Delete:', err );
     })
-};
+}; // end deleteTask
+
+// COMPLETE
+function toggleComplete(){
+  console.log('in toggleComplete');
+  const id = $(this).data('id');
+  $.ajax({
+    method: 'PUT',
+    url: `/tasks/${id}`,
+    data: { status : true } 
+  }).then(function(response){
+    console.log('back from PUT:', response);
+    getTasks();
+  }).catch(function(err){
+    console.log(err);
+    alert('error updating PUT:', err);
+  })
+} // end toggleComplete
