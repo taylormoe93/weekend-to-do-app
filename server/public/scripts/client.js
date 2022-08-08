@@ -6,7 +6,7 @@ function onReady(){
     //event listeners 
     $( '.addTaskButton' ).on( 'click', addTask ); //links to addTask function
     // $( '.completeButton' ).on( 'click', );
-    // $( '.deleteButton' ).on( 'click', );
+    $( '#outputDiv' ).on( 'click', '.deleteButton', deleteTask );
 
     getTasks(); 
 };
@@ -57,7 +57,7 @@ function getTasks(){
                     <button class="completeButton" data-id="${ response[i].id }" data-status="${ response[i].status }">complete</button>
                     <button class="deleteButton" data-id="${ response[i].id }">delete</button>
                 </li>   
-            `)} else{ // if status ==== true, then we will append to green in CSS
+            `)} else { // if status ==== true, then we will append to green in CSS
             taskDisplay.append(`
                 <li class="complete">
                     ${ response[i].task }
@@ -76,11 +76,11 @@ function deleteTask(){
     console.log( 'in delete:', id );
     $.ajax({
         type: 'DELETE',
-        url: `/items/${ id }`
+        url: `/tasks/${ id }`
     }).then( function( response ){
         console.log( `back from DELETE:`, response );
         getTasks();
     }).catch( function( err ){
-        AudioListener( 'Error with Delete:', err );
+        alert( 'Error with Delete:', err );
     })
 };

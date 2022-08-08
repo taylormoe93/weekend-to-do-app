@@ -45,3 +45,17 @@ tasksRouter.post( '/' , ( req, res ) => {
 
 module.exports = tasksRouter;
 
+// DELETE - connect to taskDelete in client.js
+tasksRouter.delete( '/:id', ( req, res ) => {
+    console.log( '/tasks DELETE:', req.params.id );
+
+    const query = `DELETE FROM "tasks" WHERE id=$1;`;
+    const values = [ req.params.id ];
+
+    pool.query( query, values ).then( ( response ) => {
+        res.sendStatus( 200 );
+    }).catch( ( err ) => {
+        console.log( 'error with DELETE:', err );
+        res.sendStatus( 500 );
+    })
+}); // end DELETE
