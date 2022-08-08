@@ -58,4 +58,18 @@ tasksRouter.delete( '/:id', ( req, res ) => {
         console.log( 'error with DELETE:', err );
         res.sendStatus( 500 );
     })
-}); // end DELETE
+}); // end /tasks DELETE
+
+// TOGGLE COMPLETE
+tasksRouter.put( '/:id', (req, res ) => {
+    console.log( '/tasks PUT:', req.params.id, req.body.status );
+    const id = req.params.id;
+    const query = `UPDATE "tasks" SET "status" = TRUE WHERE "id" = $1;`;
+    pool.query( query, [id] ).then( (results) => {
+        res.sendStatus( 200 );
+    }).catch( ( err ) => {
+        console.log( 'error with update:', err );
+        res.sendStatus ( 500 );
+    })
+}); // end /tasks PUT
+
