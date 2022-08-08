@@ -54,16 +54,18 @@ function getTasks(){
                  taskDisplay.append(`
                  <li>
                     ${ response[i].task }
-                    <button class="completeButton" data-id="${ response[i].id }" data-status="${ response[i].status }">complete</button>
-                    <button class="deleteButton" data-id="${ response[i].id }">delete</button>
+                    <button type="button" class="completeButton" data-id="${ response[i].id }" data-status="${ response[i].status }">✔</button>
+                    <button type="button" class="btn btn-danger deleteButton" data-id="${ response[i].id }">delete</button>
                 </li>   
+                <br>
             `)} else { // if status ==== true, then we will append to green in CSS
             taskDisplay.append(`
                 <li class="complete">
                     ${ response[i].task }
-                    <button class="completeButton" data-id="${ response[i].id }" data-status="${ response[i].status }">complete</button>
-                    <button class="deleteButton" data-id="${ response[i].id }">delete</button>
+                    <button type="button" class="btn btn-success completeButton" data-id="${ response[i].id }" data-status="${ response[i].status }">✔</button>
+                    <button type="button" class="btn btn-danger deleteButton" data-id="${ response[i].id }">delete</button>
                 </li>   
+                <br>
             `)
         } 
     }).catch(function(err){
