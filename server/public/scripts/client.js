@@ -39,7 +39,7 @@ function addTask() {
 
 
 
-//GET TASKS
+// GET TASKS
 function getTasks(){
     $.ajax({
         type:'GET',
@@ -71,6 +71,7 @@ function getTasks(){
     })
 }
 
+// DELETE TASK
 function deleteTask(){
     const id = $( this ).data( 'id' );
     console.log( 'in delete:', id );
@@ -83,4 +84,10 @@ function deleteTask(){
     }).catch( function( err ){
         alert( 'Error with Delete:', err );
     })
-};
+}; // end deleteTask
+
+// COMPLETE TASK TOGGLE
+function toggleComplete() {
+    const id = $( this ).data( 'id' );
+    const pendingStatus = $( this ).data
+}
