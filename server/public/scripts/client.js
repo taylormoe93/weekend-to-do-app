@@ -89,5 +89,16 @@ function deleteTask(){
 // COMPLETE TASK TOGGLE
 function toggleComplete() {
     const id = $( this ).data( 'id' );
-    const pendingStatus = $( this ).data
-}
+    const completeStatus = $( this ).data( 'pending' );
+    console.log( 'in toggleComplete:', id, completeStatus );
+    $.ajax({
+        type: 'PUT',
+        url: `/tasks/${ id }`,
+        data: { newStatus: !completeStatus }
+    }).then( function( response ){
+        console.log( 'back from PUT:', response );
+        getTasks();
+    }).catch( function (err){
+        alert( 'error updating:', err );
+    })
+};
